@@ -15,9 +15,22 @@
     </div>
 </mat-toolbar>
 <mat-sidenav-container>
-    <mat-sidenav-content  fxLayout="row" fxShow="false" fxShow.gt-sm>
+    <mat-sidenav-content fxLayout="row" fxShow="false" fxShow.gt-sm>
         <div>
             <table mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="action">
+                    <tr>
+                        <th mat-header-cell *matHeaderCellDef> Ubicar </th>
+                    </tr>
+                    <tr>
+                        <td mat-cell *matCellDef="let row" style="width:20%">
+                            <button mat-icon-button color="primary" (click)="showLocation(row)"
+                                title="Ubicar en el mapa">
+                                <mat-icon>preview</mat-icon>
+                            </button>
+                        </td>
+                    <tr>
+                </ng-container>
 
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef> Id. </th>
@@ -46,7 +59,8 @@
                     <td mat-cell *matCellDef="let element"> {{element.longitude}} </td>
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRecord(row)"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                </tr>
             </table>
             <mat-paginator [length]="dataSourceSize" [pageSize]="dataSourcePageSize" showFirstLastButtons>
             </mat-paginator>
@@ -54,6 +68,10 @@
         </div>
         <div>
             <google-map width="700px" height="400px" [center]="center" [zoom]="zoom">
+                <map-marker #markerElem="mapMarker" *ngFor="let marker of markers" [position]="getLocation(marker)"
+                    [label]="marker.title" [options]="optionsMarker"
+                    (mapClick)="openInfo(markerElem, marker.description)"></map-marker>
+                <map-info-window>{{ infoContent }}</map-info-window>
             </google-map>
         </div>
     </mat-sidenav-content>
