@@ -14,6 +14,6 @@ export class JobsServiceService {
   }
 
   public getJobs(page:any): Observable<any> {
-    return this.http.get(`${environment.apiBaseUrl}${Constants.JOBS_PATH}?=page${page}`);
+    return this.http.get(`${environment.apiBaseUrl}${Constants.JOBS_PATH}?page=${page}`);
   }
 }
