@@ -1,0 +1,16 @@
+<mat-toolbar color="primary" class="app-header">
+	<div style="font-size: 15px">
+		Bienvenido {{user.name}}/{{user.email}}
+	</div>
+    <span class="example-spacer"></span>
+    <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+        <button mat-button routerLink="/login" *ngIf="!isAuthenticated">
+          <mat-icon>power_settings_new</mat-icon>
+          Iniciar sesión
+        </button>
+        <button mat-button *ngIf="isAuthenticated" (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          Salir
+        </button>
+      </div>
+</mat-toolbar>

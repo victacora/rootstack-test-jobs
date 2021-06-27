@@ -1,0 +1,38 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title>Iniciar sesión</mat-card-title>
+        </mat-card-header>
+
+        <form class="example-form" [formGroup]="loginForm" (submit)="login()" autocomplete="off" novalidate>
+            <mat-card-content>
+                <mat-form-field class="example-full-width">
+                    <input matInput [formControl]="email" pattern="{{emailPattern}}" type="text" id="email">
+                    <mat-label>Correo electrónico</mat-label>
+                    <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
+                        <span *ngIf="email.errors.required || email.errors.pattern">
+                            Por favor, ingrese una correo electrónico válido.
+                        </span>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input matInput [formControl]="password"  type="password" id="email">
+                    <mat-label>Contraseña</mat-label>
+                    <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+                      <span *ngIf="password.errors.required">
+                        Por favor, ingrese una contraseña válida.
+                      </span>
+                    </mat-error>
+                </mat-form-field>
+                  
+                  <div class="example-full-width" *ngIf="error!==''"> {{ error }}</div>
+            </mat-card-content>
+            <button mat-stroked-button color="primary" class="btn-block" type="submit"
+            [disabled]="loginForm.invalid">
+            Iniciar sesión
+          </button>
+        </form>
+    </mat-card>
+
+</div>
