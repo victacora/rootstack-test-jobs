@@ -44,9 +44,13 @@ export class LogInComponent implements OnInit {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.getRawValue())
         .subscribe(res => this.router.navigate(['/home']),
-                   reserror =>{ 
-                    this.error = reserror.error.error || 'Fallo el servicio de autenticación' 
-                   });
+          err => {
+            if (err && err.status == 401) {
+              this.error = 'Fallo el servicio de autenticación: El usuario o la contraseña son incorecctos.'
+            } else {
+              this.error = err.error.error || 'Fallo el servicio de autenticación'
+            }
+          });
     }
   }
 
