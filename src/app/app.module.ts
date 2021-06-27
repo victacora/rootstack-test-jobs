@@ -1,3 +1,4 @@
+import { JobsServiceService } from './core/services/jobs-service.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -45,6 +46,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptor/auth.interceptor';
 import { ErrorInterceptor } from './core/interceptor/error.interceptor';
 import { HomeComponent } from './core/components/home/home.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 const materialModules = [
   CdkTreeModule,
@@ -95,9 +97,11 @@ const materialModules = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    GoogleMapsModule,
     materialModules
   ],
   providers: [ AuthService,
+    JobsServiceService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },],
   bootstrap: [AppComponent]
